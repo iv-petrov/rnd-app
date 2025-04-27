@@ -1,24 +1,25 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import MyInput from './Components/MyInput';
 
 function App() {
+  const [xMin, setxMin] = useState(0)
+  const [xMax, setxMax] = useState(100)
+  const [xRnd, setXrnd] = useState(0)
+
+  const generateRnd = function() {
+    return setXrnd(Math.floor(Math.random() * (xMax - xMin + 1)) + Math.floor(xMin))
+  }
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <h1 className="App-header">Генератор случайных чисел</h1>
+      <MyInput labelTxt='Минимальное  значение:' input={xMin} change={(e) => setxMin(e.target.value)} />
+      <MyInput labelTxt='Максимальное значение:' input={xMax} change={(e) => setxMax(e.target.value)} />
+      <div>
+        <button onClick={generateRnd}> Генерировать </button>  случайное число {xRnd}
+      </div>
+   </div>
   );
 }
 
