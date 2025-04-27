@@ -6,8 +6,11 @@ function App() {
   const [xMin, setxMin] = useState(0)
   const [xMax, setxMax] = useState(100)
   const [xRnd, setXrnd] = useState(0)
-
+  
   const generateRnd = function() {
+    if (xMin >= xMax) {
+      setxMin(xMax - 1)
+    }
     return setXrnd(Math.floor(Math.random() * (xMax - xMin + 1)) + Math.floor(xMin))
   }
   
