@@ -3,24 +3,34 @@ import './App.css';
 import MyInput from './Components/MyInput';
 
 function App() {
-  const [xMin, setxMin] = useState(0)
-  const [xMax, setxMax] = useState(100)
-  const [xRnd, setXrnd] = useState(0)
-  
+  const [minValue, setMinValue] = useState(0)
+  const [maxValue, setMaxValue] = useState(100)
+  const [rndValue, setRndValue] = useState(0)
+ 
   const generateRnd = function() {
-    if (xMin >= xMax) {
-      setxMin(xMax - 1)
+    if (minValue.length === 0) {
+      alert("Введено пустое минимальное значение")
+      setMinValue(0)
     }
-    return setXrnd(Math.floor(Math.random() * (xMax - xMin + 1)) + Math.floor(xMin))
+    if (maxValue.length === 0) {
+      alert("Введено пустое максимальное значение")
+      setMaxValue(Math.floor(minValue) + 1)
+    }
+    if (minValue >= maxValue) {
+      alert("Минимальное значение должно быть меньше максимального")
+      setMinValue(maxValue - 1)
+    }
+    setRndValue(Math.floor(Math.random() * (maxValue - minValue + 1)) + Math.floor(minValue))
+    return
   }
   
   return (
     <div className="App">
       <h1 className="App-header">Генератор случайных чисел</h1>
-      <MyInput labelTxt='Минимальное  значение:' input={xMin} change={(e) => setxMin(e.target.value)} />
-      <MyInput labelTxt='Максимальное значение:' input={xMax} change={(e) => setxMax(e.target.value)} />
+      <MyInput labelTxt='Минимальное  значение:' input={minValue} change={(e) => setMinValue(e.target.value)} />
+      <MyInput labelTxt='Максимальное значение:' input={maxValue} change={(e) => setMaxValue(e.target.value)} />
       <div>
-        <button onClick={generateRnd}> Генерировать </button>  случайное число {xRnd}
+        <button onClick={generateRnd}> Генерировать </button>  случайное число {rndValue}
       </div>
    </div>
   );
